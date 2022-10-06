@@ -134,7 +134,8 @@ const puppeteer = require('puppeteer');
 
   await page.waitForSelector('#edit-submit');
   console.log('i');
-  await page.evaluate(() => document.getElementById('edit-submit').click());
+  await page.click('#edit-submit')
+  // await page.evaluate(() => document.getElementById('edit-submit').click());
   console.log('j');
 
   await navigationPromise;
