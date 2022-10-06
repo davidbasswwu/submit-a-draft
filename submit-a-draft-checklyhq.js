@@ -10,9 +10,15 @@ const puppeteer = require('puppeteer');
 
 ; (async () => {
 
-  const browser = await puppeteer.launch();
+  const screenSize = {
+    width: 1280,
+    height: 768,
+  };
 
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  await page.setViewport(screenSize);
+
   const theDate = new Date();
   const date = theDate.toLocaleTimeString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true });
   const dateArray = date.split(', ');
@@ -25,9 +31,6 @@ const puppeteer = require('puppeteer');
   // const navigationPromise = page.waitForNavigation();
 
   await page.goto('https://library.wwu.edu/submit-draft-studio');
-
-  await page.setViewport({ width: 800, height: 600 });
-
 
   // console.log('process.env.FILE_PATH', process.env.FILE_PATH);
   // console.log('x');
@@ -51,14 +54,15 @@ const puppeteer = require('puppeteer');
   await page.type('#edit-due-date-rws-draft-time', '14:35 PM');
 
   await page.waitForSelector('#edit-academic-level-rws-draft');
-  await page.click('#edit-academic-level-rws-draft');
+  // await page.click('#edit-academic-level-rws-draft');
   await page.select('#edit-academic-level-rws-draft', 'Undergraduate Student');
 
   console.log('x4');
 
-  await page.evaluate(() => {
-    document.querySelector("#edit-main-concerns-rws-draft-writing-a-thesis-statement").click();
-  });
+  waitAndClick('#edit-main-concerns-rws-draft-writing-a-thesis-statement', page);
+  // await page.evaluate(() => {
+  //   document.querySelector("#edit-main-concerns-rws-draft-writing-a-thesis-statement").click();
+  // });
 
   console.log('x5');
 
@@ -89,7 +93,7 @@ const puppeteer = require('puppeteer');
 
   console.log('e');
   // get the selector input type=file (for upload file)
-  await page.waitForSelector('input[type=file]');
+  // await page.waitForSelector('input[type=file]');
 
   // get the ElementHandle of the selector above
   const inputUploadHandle = await page.$('input[type=file]');
@@ -103,7 +107,9 @@ const puppeteer = require('puppeteer');
 
   // doing click on button to trigger upload file
   await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload');
-  await page.evaluate(() => document.getElementById('edit-draft-and-assignment-description-rws-draft-upload').click());
+  // await page.evaluate(() => document.getElementById('edit-draft-and-assignment-description-rws-draft-upload').click());
+  waitAndClick('#edit-draft-and-assignment-description-rws-draft-upload', page);
+
 
   // wait for selector that contains the uploaded file URL
   // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
@@ -116,7 +122,8 @@ const puppeteer = require('puppeteer');
   await page.select('#edit-how-did-you-learn-about-rws-draft-select', 'Instructor')
 
   await page.waitForSelector('#edit-may-we-contact-rws-draft');
-  await page.evaluate(() => document.getElementById('edit-may-we-contact-rws-draft').click());
+  // await page.evaluate(() => document.getElementById('edit-may-we-contact-rws-draft').click());
+  waitAndClick('#edit-may-we-contact-rws-draft', page);
 
   // await page.waitForSelector('#edit-actions');
   console.log('h');
