@@ -129,9 +129,8 @@ const puppeteer = require('puppeteer');
   await page.waitForSelector('#edit-submit');
   console.log('i');
 
-  // waitAndClick('#edit-submit', page);
-  await page.click('#edit-submit'); 
-
+  waitAndClick('#edit-submit', page);
+  // await page.click('#edit-submit'); 
   // await page.evaluate(()=>document.querySelector('#edit-submit').click());
   // await page.evaluate(() => document.getElementById('edit-submit').click());
   // await page.screenshot({ path: 'after_submit.png', fullPage: true })
@@ -145,11 +144,12 @@ const puppeteer = require('puppeteer');
   await browser.close()
 })()
 
-
-// async function waitAndClick(selector, page) {
-//   await page.waitForFunction(
-//     `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
-//     { visible: true },
-//   );
-//   await page.evaluate((selector) => document.querySelector(selector).click(), selector);
-// }
+// https://github.com/puppeteer/puppeteer/issues/2977#issuecomment-737607041
+async function waitAndClick(selector, page) {
+  await page.waitForFunction(
+    `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
+    { visible: true },
+  );
+  const element = await page.$(selector);
+  await element.click();
+}
