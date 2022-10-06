@@ -129,7 +129,7 @@ const puppeteer = require('puppeteer');
   // await page.waitForSelector('#edit-submit')
   // await page.click('#edit-submit')
 
-  const submit_button = await page.waitForSelector('#edit-submit')
+  const submit_button = await page.$('#edit-submit');
   await submit_button.evaluate(b => b.click());
 
   console.log('h');
