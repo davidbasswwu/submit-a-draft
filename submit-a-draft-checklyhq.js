@@ -10,16 +10,6 @@ const puppeteer = require('puppeteer');
 
 ; (async () => {
 
-  // https://github.com/puppeteer/puppeteer/issues/2977#issuecomment-737607041
-  async function waitAndClick(selector, page) {
-    await page.waitForFunction(
-      `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
-      { visible: true },
-    );
-    const element = await page.$(selector);
-    await element.click();
-  }
-
   const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
@@ -149,3 +139,12 @@ const puppeteer = require('puppeteer');
   await browser.close()
 })()
 
+  // https://github.com/puppeteer/puppeteer/issues/2977#issuecomment-737607041
+  async function waitAndClick(selector, page) {
+    await page.waitForFunction(
+      `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
+      { visible: true },
+    );
+    const element = await page.$(selector);
+    await element.click();
+  }
