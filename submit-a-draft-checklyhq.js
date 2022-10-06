@@ -38,10 +38,10 @@ const puppeteer = require('puppeteer');
 
   await page.setViewport({ width: 800, height: 600 });
 
-  await navigationPromise;
+  // await navigationPromise;
 
-  console.log('process.env.FILE_PATH', process.env.FILE_PATH);
-  console.log('x');
+  // console.log('process.env.FILE_PATH', process.env.FILE_PATH);
+  // console.log('x');
 
   await page.waitForSelector('#edit-title-rws-draft');
   // await page.click('#edit-title-rws-draft')
