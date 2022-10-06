@@ -22,9 +22,8 @@ const puppeteer = require('puppeteer');
 
   const browser = await puppeteer.launch(
     {
-      headless: false,
-      slowMo: 25, // slow down by _ ms 
-      devtools: true
+      headless: true,
+      devtools: false
     });
 
   const page = await browser.newPage();
