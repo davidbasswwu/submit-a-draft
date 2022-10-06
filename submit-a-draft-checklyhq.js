@@ -126,6 +126,7 @@ const puppeteer = require('puppeteer');
 
   console.log('g');
 
+  await page.waitForSelector('#edit-actions')
   await page.waitForSelector('#edit-submit')
   await page.evaluate(() => document.getElementById('edit-submit').click());
 
