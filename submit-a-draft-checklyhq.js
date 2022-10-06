@@ -6,7 +6,6 @@ console.log('Wrote test file to ', filePath)
 const contents = fs.readFileSync(filePath, 'utf8')
 console.log('Test file contains: ', contents)
 
-
 const puppeteer = require('puppeteer');
 
 ; (async () => {
@@ -14,7 +13,7 @@ const puppeteer = require('puppeteer');
     {
       headless: false,
       slowMo: 25, // slow down by _ ms 
-      devtools: false
+      devtools: true
     });
 
   const page = await browser.newPage()
@@ -108,7 +107,7 @@ const puppeteer = require('puppeteer');
   // const fileToUpload = process.env.FILE_PATH
   // const fileToUpload = path.join(__dirname, process.env.FILE_PATH)
   const fileToUpload = filePath;
-  inputUploadHandle.uploadFile(fileToUpload)
+  inputUploadHandle.uploadFile(fileToUpload);
   console.log('f');
 
   // doing click on button to trigger upload file
@@ -118,21 +117,21 @@ const puppeteer = require('puppeteer');
   // wait for selector that contains the uploaded file URL
   await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
 
-  console.log('file uploaded')
+  console.log('file uploaded');
 
-  await page.waitForSelector('#edit-other-info-rws-draft')
+  await page.waitForSelector('#edit-other-info-rws-draft');
   // await page.click('#edit-other-info-rws-draft')
-  await page.type('#edit-preferred-name-rws-draft', ' created by https://app.checklyhq.com/checks/1862047a-0f53-44fa-80bf-f536ece5b7e0/browser/edit ')
+  await page.type('#edit-preferred-name-rws-draft', ' created by https://app.checklyhq.com/checks/1862047a-0f53-44fa-80bf-f536ece5b7e0/browser/edit ');
 
   console.log('g');
 
-  await page.waitForSelector('#edit-actions')
-  await page.waitForSelector('#edit-submit')
+  await page.waitForSelector('#edit-actions');
+  await page.waitForSelector('#edit-submit');
   await page.evaluate(() => document.getElementById('edit-submit').click());
 
   console.log('h');
 
-  await navigationPromise
+  await navigationPromise;
 
   await browser.close()
 })()
