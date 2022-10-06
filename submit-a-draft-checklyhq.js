@@ -125,6 +125,10 @@ const puppeteer = require('puppeteer');
 
   console.log('g');
 
+  await page.waitForSelector('#edit-how-did-you-learn-about-rws-draft-select');
+  await page.select('#edit-how-did-you-learn-about-rws-draft-select', 'Instructor')
+
+
   await page.waitForSelector('#edit-actions');
   console.log('h');
 
