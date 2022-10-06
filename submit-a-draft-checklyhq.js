@@ -134,8 +134,13 @@ const puppeteer = require('puppeteer');
 
   await page.waitForSelector('#edit-submit');
   console.log('i');
+  await page.screenshot({ path: 'before_submit.png', fullPage: true })
+
   await page.evaluate(()=>document.querySelector('#edit-submit').click());
   // await page.evaluate(() => document.getElementById('edit-submit').click());
+
+  await page.screenshot({ path: 'after_submit.png', fullPage: true })
+
   console.log('j');
 
   await navigationPromise;
