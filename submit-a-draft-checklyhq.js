@@ -139,7 +139,7 @@ const puppeteer = require('puppeteer');
 
   await navigationPromise;
   console.log('k');
-  await page.close();
+  // await page.close();
   console.log('l');
   await browser.close()
 })()
