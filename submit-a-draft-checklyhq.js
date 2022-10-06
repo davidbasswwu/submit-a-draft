@@ -152,6 +152,6 @@ const puppeteer = require('puppeteer');
   console.log('k');
   // await page.close();
   console.log('l');
-  // await browser.close()
+  await browser.close()
 })()
 
