@@ -136,7 +136,9 @@ const puppeteer = require('puppeteer');
   console.log('i');
   await page.screenshot({ path: 'before_submit.png', fullPage: true })
 
-  await page.evaluate(()=>document.querySelector('#edit-submit').click());
+  waitAndClick('#edit-submit', page);
+
+  // await page.evaluate(()=>document.querySelector('#edit-submit').click());
   // await page.evaluate(() => document.getElementById('edit-submit').click());
 
   await page.screenshot({ path: 'after_submit.png', fullPage: true })
@@ -148,3 +150,12 @@ const puppeteer = require('puppeteer');
 
   await browser.close()
 })()
+
+
+async function waitAndClick(selector, page) {
+  await page.waitForFunction(
+    `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
+    { visible: true },
+  );
+  await page.evaluate((selector) => document.querySelector(selector).click(), selector);
+}
