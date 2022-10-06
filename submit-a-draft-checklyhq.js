@@ -38,7 +38,6 @@ const puppeteer = require('puppeteer');
 
   await page.setViewport({ width: 800, height: 600 });
 
-  await page.waitForNavigation();
 
   // console.log('process.env.FILE_PATH', process.env.FILE_PATH);
   // console.log('x');
@@ -119,7 +118,6 @@ const puppeteer = require('puppeteer');
   // wait for selector that contains the uploaded file URL
   // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
 
-  await page.waitForNavigation();
   console.log('file uploaded');
 
   console.log('g');
