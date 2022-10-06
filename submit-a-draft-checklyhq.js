@@ -115,7 +115,7 @@ const puppeteer = require('puppeteer');
   await page.evaluate(() => document.getElementById('edit-draft-and-assignment-description-rws-draft-upload').click());
 
   // wait for selector that contains the uploaded file URL
-  await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
+  // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
 
   console.log('file uploaded');
 
