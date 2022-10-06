@@ -12,7 +12,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch(
     {
       headless: false,
-      slowMo: 55, // slow down by _ ms 
+      slowMo: 25, // slow down by _ ms 
       devtools: true
     });
 
@@ -137,9 +137,10 @@ const puppeteer = require('puppeteer');
 
   console.log('j');
 
-  // await navigationPromise;
-  // console.log('k');
-
+  await navigationPromise;
+  console.log('k');
+  await page.close();
+  console.log('l');
   await browser.close()
 })()
 
