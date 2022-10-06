@@ -122,7 +122,7 @@ const puppeteer = require('puppeteer');
   console.log('file uploaded')
 
   await page.waitForSelector('#edit-other-info-rws-draft')
-  await page.click('#edit-other-info-rws-draft')
+  // await page.click('#edit-other-info-rws-draft')
   await page.type('#edit-preferred-name-rws-draft', ' created by https://app.checklyhq.com/checks/1862047a-0f53-44fa-80bf-f536ece5b7e0/browser/edit ')
 
 
