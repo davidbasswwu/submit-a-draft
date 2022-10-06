@@ -31,8 +31,7 @@ const puppeteer = require('puppeteer');
   console.log(YYYYMMDD);
   console.log(hhmm);
   const draftTitle = 'Daily autotest ' + date;
-
-  // const navigationPromise = page.waitForNavigation();
+  const navigationPromise = page.waitForNavigation()
 
   await page.goto('https://library.wwu.edu/submit-draft-studio');
 
@@ -142,8 +141,8 @@ const puppeteer = require('puppeteer');
   // await page.screenshot({ path: 'after_submit.png', fullPage: true })
 
   console.log('j');
-  // await page.waitForNavigation();
-
+  await navigationPromise;
+  
   console.log('k');
   // await page.close();
   console.log('l');
