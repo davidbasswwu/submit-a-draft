@@ -15,7 +15,11 @@ const puppeteer = require('puppeteer');
     height: 768,
   };
 
-  const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch(
+    {
+      headless: true,
+      args: ['--disable-dev-shm-usage']
+    });
   const page = await browser.newPage();
   await page.setViewport(screenSize);
 
