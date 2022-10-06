@@ -32,13 +32,13 @@ const puppeteer = require('puppeteer');
   console.log(hhmm);
   const draftTitle = 'Daily autotest ' + date;
 
-  const navigationPromise = page.waitForNavigation();
+  // const navigationPromise = page.waitForNavigation();
 
   await page.goto('https://library.wwu.edu/submit-draft-studio');
 
   await page.setViewport({ width: 800, height: 600 });
 
-  // await navigationPromise;
+  await page.waitForNavigation();
 
   // console.log('process.env.FILE_PATH', process.env.FILE_PATH);
   // console.log('x');
@@ -119,6 +119,7 @@ const puppeteer = require('puppeteer');
   // wait for selector that contains the uploaded file URL
   // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
 
+  await page.waitForNavigation();
   console.log('file uploaded');
 
   console.log('g');
@@ -142,8 +143,8 @@ const puppeteer = require('puppeteer');
   // await page.screenshot({ path: 'after_submit.png', fullPage: true })
 
   console.log('j');
+  await page.waitForNavigation();
 
-  await navigationPromise;
   console.log('k');
   // await page.close();
   console.log('l');
