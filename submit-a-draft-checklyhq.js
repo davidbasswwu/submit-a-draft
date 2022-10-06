@@ -9,6 +9,17 @@ console.log('Test file contains: ', contents)
 const puppeteer = require('puppeteer');
 
 ; (async () => {
+
+  // https://github.com/puppeteer/puppeteer/issues/2977#issuecomment-737607041
+  async function waitAndClick(selector, page) {
+    await page.waitForFunction(
+      `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
+      { visible: true },
+    );
+    const element = await page.$(selector);
+    await element.click();
+  }
+
   const browser = await puppeteer.launch(
     {
       headless: false,
@@ -141,15 +152,6 @@ const puppeteer = require('puppeteer');
   console.log('k');
   // await page.close();
   console.log('l');
-  await browser.close()
+  // await browser.close()
 })()
 
-// https://github.com/puppeteer/puppeteer/issues/2977#issuecomment-737607041
-async function waitAndClick(selector, page) {
-  await page.waitForFunction(
-    `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
-    { visible: true },
-  );
-  const element = await page.$(selector);
-  await element.click();
-}
