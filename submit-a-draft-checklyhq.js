@@ -20,11 +20,7 @@ const puppeteer = require('puppeteer');
     await element.click();
   }
 
-  const browser = await puppeteer.launch(
-    {
-      headless: true,
-      devtools: false
-    });
+  const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
   const theDate = new Date();
