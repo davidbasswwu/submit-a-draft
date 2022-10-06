@@ -1,12 +1,3 @@
-const path = require('path')
-const fs = require('fs')
-﻿const filePath = path.join(__dirname, 'test-upload-file.txt')
-fs.writeFileSync(filePath, 'test file contents')
-console.log('Wrote test file to ', filePath)
-const contents = fs.readFileSync(filePath, 'utf8')
-console.log('Test file contains: ', contents)
-
-
 const puppeteer = require('puppeteer');
 
 ; (async () => {
@@ -106,9 +97,7 @@ const puppeteer = require('puppeteer');
   const inputUploadHandle = await page.$('input[type=file]');
 
   // const fileToUpload = 'test-upload-file.txt'
-  // const fileToUpload = process.env.FILE_PATH
-  // const fileToUpload = path.join(__dirname, process.env.FILE_PATH)
-  const fileToUpload = filePath;
+  const fileToUpload = process.env.FILE_PATH
   inputUploadHandle.uploadFile(fileToUpload)
   console.log('f');
 
