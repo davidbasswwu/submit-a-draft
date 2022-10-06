@@ -138,7 +138,7 @@ const puppeteer = require('puppeteer');
   // await page.screenshot({ path: 'after_submit.png', fullPage: true })
 
   console.log('j');
-  await page.waitForNavigation();
+  // await page.waitForNavigation();
 
   console.log('k');
   // await page.close();
