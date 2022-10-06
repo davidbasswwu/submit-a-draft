@@ -152,6 +152,5 @@ const puppeteer = require('puppeteer');
       `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
       { visible: true },
     );
-    const element = await page.$(selector);
-    await element.click();
+    await page.evaluate((selector) => document.querySelector(selector).click(), selector);
   }
