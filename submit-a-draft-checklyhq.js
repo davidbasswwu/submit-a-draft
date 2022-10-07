@@ -17,143 +17,130 @@ const puppeteer = require('puppeteer');
 
   const browser = await puppeteer.launch(
     {
-      headless: true,
+      headless: false,
+      slowMo: 100,
       args: ['--disable-dev-shm-usage']
     });
-  const page = await browser.newPage();
-  await page.setViewport(screenSize);
+  try {  
+    const page = await browser.newPage();
+    await page.setViewport(screenSize);
 
-  const theDate = new Date();
-  const date = theDate.toLocaleTimeString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true });
-  const dateArray = date.split(', ');
-  const YYYYMMDD = dateArray[0];
-  const hhmm = dateArray[1];
-  console.log(YYYYMMDD);
-  console.log(hhmm);
-  const draftTitle = 'Daily autotest ' + date;
-  const navigationPromise = page.waitForNavigation()
+    const theDate = new Date();
+    const date = theDate.toLocaleTimeString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true });
+    const dateArray = date.split(', ');
+    const YYYYMMDD = dateArray[0];
+    const hhmm = dateArray[1];
+    console.log(YYYYMMDD);
+    console.log(hhmm);
+    const draftTitle = 'Daily autotest ' + date;
+    const navigationPromise = page.waitForNavigation()
 
-  await page.goto('https://library.wwu.edu/submit-draft-studio');
+    await page.goto('https://library.wwu.edu/submit-draft-studio');
 
-  // console.log('process.env.FILE_PATH', process.env.FILE_PATH);
-  // console.log('x');
+    // console.log('process.env.FILE_PATH', process.env.FILE_PATH);
+    // console.log('x');
 
-  await page.waitForSelector('#edit-title-rws-draft');
-  // await page.click('#edit-title-rws-draft')
-  await page.type('#edit-title-rws-draft', draftTitle);
+    await typeThis('#edit-title-rws-draft', draftTitle, page);
 
-  await page.waitForSelector('#edit-other-info-rws-draft');
-  await page.type('#edit-preferred-name-rws-draft', 'David Bass');
-  // await page.type('#edit-preferred-name-rws-draft', ' created by https://app.checklyhq.com/checks/1862047a-0f53-44fa-80bf-f536ece5b7e0/browser/edit by David Bass');
-
-  await page.type('#edit-wwu-email-address-rws-draft-mail-1', 'bassd2@wwu.edu');
-  await page.type('#edit-wwu-email-address-rws-draft-mail-2', 'bassd2@wwu.edu');
-
-  await page.waitForSelector('#edit-due-date-rws-draft-date');
-  // await page.click('#edit-due-date-rws-draft-date')
-  await page.type('#edit-due-date-rws-draft-date', YYYYMMDD);
-
-  await page.waitForSelector('#edit-due-date-rws-draft-time');
-  await page.type('#edit-due-date-rws-draft-time', '14:35 PM');
-
-  await page.waitForSelector('#edit-academic-level-rws-draft');
-  // await page.click('#edit-academic-level-rws-draft');
-  await page.select('#edit-academic-level-rws-draft', 'Undergraduate Student');
-
-  console.log('x4');
-
-  waitAndClick('#edit-main-concerns-rws-draft-writing-a-thesis-statement', page);
-  // await page.evaluate(() => {
-  //   document.querySelector("#edit-main-concerns-rws-draft-writing-a-thesis-statement").click();
-  // });
-
-  console.log('x5');
-
-  await page.waitForSelector('#edit-draft-type-rws-draft-select');
-  await page.select('#edit-draft-type-rws-draft-select', 'Class Paper');
-
-  console.log('x6');
-
-  // await page.waitForSelector('#edit-academic-level-rws-draft')
-  // await page.click('#edit-academic-level-rws-draft')
-  // console.log('x7');
-
-  await page.waitForSelector('#edit-citation-style-rws-draft-select');
-  await page.select('#edit-citation-style-rws-draft-select', 'APA');
-
-  console.log('a');
-
-  await page.waitForSelector('#edit-course-information-rws-draft');
-  await page.type('#edit-course-information-rws-draft', 'TST 101');
-
-  console.log('b');
-  await page.waitForSelector('#edit-instructor-rws-draft');
-  await page.type('#edit-instructor-rws-draft', 'Gabe Gossett');
-
-  console.log('c');
-  await page.waitForSelector('#edit-assignment-description-rws-draft');
-  await page.type('#edit-assignment-description-rws-draft', 'My assignment description does here.');
-
-  console.log('e');
-  // get the selector input type=file (for upload file)
-  // await page.waitForSelector('input[type=file]');
-
-  // get the ElementHandle of the selector above
-  const inputUploadHandle = await page.$('input[type=file]');
-
-  // const fileToUpload = 'test-upload-file.txt'
-  // const fileToUpload = process.env.FILE_PATH
-  // const fileToUpload = path.join(__dirname, process.env.FILE_PATH)
-  const fileToUpload = filePath;
-  inputUploadHandle.uploadFile(fileToUpload);
-  console.log('f');
-
-  // doing click on button to trigger upload file
-  await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload');
-  // await page.evaluate(() => document.getElementById('edit-draft-and-assignment-description-rws-draft-upload').click());
-  waitAndClick('#edit-draft-and-assignment-description-rws-draft-upload', page);
-
-
-  // wait for selector that contains the uploaded file URL
-  // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
-
-  console.log('file uploaded');
-
-  console.log('g');
-
-  await page.waitForSelector('#edit-how-did-you-learn-about-rws-draft-select');
-  await page.select('#edit-how-did-you-learn-about-rws-draft-select', 'Instructor')
-
-  await page.waitForSelector('#edit-may-we-contact-rws-draft');
-  // await page.evaluate(() => document.getElementById('edit-may-we-contact-rws-draft').click());
-  waitAndClick('#edit-may-we-contact-rws-draft', page);
-
-  // await page.waitForSelector('#edit-actions');
-  console.log('h');
-
-  await page.waitForSelector('#edit-submit');
-  console.log('i');
-
-  waitAndClick('#edit-submit', page);
-  // await page.click('#edit-submit'); 
-  // await page.evaluate(()=>document.querySelector('#edit-submit').click());
-  // await page.evaluate(() => document.getElementById('edit-submit').click());
-  // await page.screenshot({ path: 'after_submit.png', fullPage: true })
-
-  console.log('j');
-  await navigationPromise;
+    await typeThis('#edit-preferred-name-rws-draft', 'David Bass - autotest', page);
   
-  console.log('k');
-  // await page.close();
-  console.log('l');
-  await browser.close()
-})()
+    await typeThis('#edit-wwu-email-address-rws-draft-mail-1', 'bassd2@wwu.edu', page);
+    await typeThis('#edit-wwu-email-address-rws-draft-mail-2', 'bassd2@wwu.edu', page);
+  
+    await page.waitForSelector('#edit-due-date-rws-draft-date');
+    await typeThis('#edit-due-date-rws-draft-date', YYYYMMDD, page);
+  
+    await page.waitForSelector('#edit-due-date-rws-draft-time');
+    // await page.type('#edit-due-date-rws-draft-time', '14:35 PM');
+    await typeThis('#edit-due-date-rws-draft-time', '14:35 PM', page);
 
-  // https://github.com/puppeteer/puppeteer/issues/2977#issuecomment-737607041
+    await page.waitForSelector('#edit-academic-level-rws-draft');
+    waitAndClick('#edit-academic-level-rws-draft', page);
+    await page.select('#edit-academic-level-rws-draft', 'Undergraduate Student');
+
+    waitAndClick('#edit-main-concerns-rws-draft-writing-a-thesis-statement', page);
+
+    // await page.waitForSelector('#edit-draft-type-rws-draft-select');
+    waitAndClick('#edit-draft-type-rws-draft-select', page);
+    await page.select('#edit-draft-type-rws-draft-select', 'Class Paper');
+
+    // await page.waitForSelector('#edit-citation-style-rws-draft-select');
+    await page.select('#edit-citation-style-rws-draft-select', 'APA');
+
+    await typeThis('#edit-course-information-rws-draft', 'TST 101', page);
+
+    await typeThis('#edit-instructor-rws-draft', 'Gabe Gossett', page);
+
+    await typeThis('#edit-assignment-description-rws-draft', 'This is just a test', page);
+
+    // get the selector input type=file (for upload file)
+    // await page.waitForSelector('input[type=file]');
+
+    // get the ElementHandle of the selector above
+    const inputUploadHandle = await page.$('input[type=file]');
+
+    // const fileToUpload = 'test-upload-file.txt'
+    // const fileToUpload = process.env.FILE_PATH
+    // const fileToUpload = path.join(__dirname, process.env.FILE_PATH)
+    const fileToUpload = filePath;
+    inputUploadHandle.uploadFile(fileToUpload);
+
+    // doing click on button to trigger upload file
+    // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload');
+    // await page.evaluate(() => document.getElementById('edit-draft-and-assignment-description-rws-draft-upload').click());
+    await waitAndClick('#edit-draft-and-assignment-description-rws-draft-upload', page);
+
+    // wait for selector that contains the uploaded file URL
+    // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
+
+    console.log('file uploaded');
+
+    await page.waitForSelector('#edit-how-did-you-learn-about-rws-draft-select');
+    await page.select('#edit-how-did-you-learn-about-rws-draft-select', 'Instructor')
+
+    await page.waitForSelector('#edit-may-we-contact-rws-draft');
+    // await page.evaluate(() => document.getElementById('edit-may-we-contact-rws-draft').click());
+    await waitAndClick('#edit-may-we-contact-rws-draft', page);
+
+    await typeThis('#edit-other-info-rws-draft', 'This is a Puppeteer test', page);
+
+    // await page.waitForSelector('#edit-actions');
+
+    await page.waitForSelector('#edit-submit');
+    await waitAndClick('#edit-submit', page);
+    // await page.click('#edit-submit'); 
+    // await page.evaluate(()=>document.querySelector('#edit-submit').click());
+    // await page.evaluate(() => document.getElementById('edit-submit').click());
+    // await page.screenshot({ path: 'after_submit.png', fullPage: true })
+
+    await navigationPromise;
+    
+    console.log('k');
+    // await page.close();
+    console.log('l');    
+    await browser.close();
+  } catch (error) {
+    console.log(error);
+  } finally {
+  }
+    
+
+})();
+
+  // thanks to https://github.com/puppeteer/puppeteer/issues/2977#issuecomment-737607041
   async function waitAndClick(selector, page) {
     await page.waitForFunction(
       `document.querySelector('${selector}') && document.querySelector('${selector}').clientHeight != 0`,
       { visible: true },
     );
     await page.evaluate((selector) => document.querySelector(selector).click(), selector);
+    await page.$eval(selector, e => e.blur());
+  }
+
+  async function typeThis(selector, theValue, page) {
+    await page.waitForTimeout(1000);    // wait for a second
+    await page.waitForSelector(selector); // wait for the element
+    await page.focus(selector); // focus on the element
+    await page.keyboard.type(theValue);  // thanks https://stackoverflow.com/a/56772379
+    await page.$eval(selector, e => e.blur());  // blur off of the element
   }
