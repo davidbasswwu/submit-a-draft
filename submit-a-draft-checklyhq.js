@@ -18,7 +18,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch(
     {
       headless: false,
-      slowMo: 100,
+      slowMo: 25,
       args: ['--disable-dev-shm-usage']
     });
   try {  
@@ -98,7 +98,7 @@ const puppeteer = require('puppeteer');
     await page.waitForSelector('#edit-how-did-you-learn-about-rws-draft-select');
     await page.select('#edit-how-did-you-learn-about-rws-draft-select', 'Instructor')
 
-    await page.waitForSelector('#edit-may-we-contact-rws-draft');
+    // await page.waitForSelector('#edit-may-we-contact-rws-draft');
     // await page.evaluate(() => document.getElementById('edit-may-we-contact-rws-draft').click());
     await waitAndClick('#edit-may-we-contact-rws-draft', page);
 
@@ -106,7 +106,7 @@ const puppeteer = require('puppeteer');
 
     // await page.waitForSelector('#edit-actions');
 
-    await page.waitForSelector('#edit-submit');
+    // await page.waitForSelector('#edit-submit');
     await waitAndClick('#edit-submit', page);
     // await page.click('#edit-submit'); 
     // await page.evaluate(()=>document.querySelector('#edit-submit').click());
@@ -115,13 +115,12 @@ const puppeteer = require('puppeteer');
 
     await navigationPromise;
     
-    console.log('k');
     // await page.close();
     console.log('l');    
-    await browser.close();
   } catch (error) {
     console.log(error);
   } finally {
+    await browser.close();
   }
     
 
@@ -138,7 +137,7 @@ const puppeteer = require('puppeteer');
   }
 
   async function typeThis(selector, theValue, page) {
-    await page.waitForTimeout(1000);    // wait for a second
+    await page.waitForTimeout(500);    // wait for a second
     await page.waitForSelector(selector); // wait for the element
     await page.focus(selector); // focus on the element
     await page.keyboard.type(theValue);  // thanks https://stackoverflow.com/a/56772379
