@@ -1,2 +1,2 @@
-# submit-a-draft
-A Puppeteer (or Playwright) automated browser test of the RWS Submit A Draft form.
+# Puppeteer - Form + file upload test
+A Puppeteer automated browser test of the RWS Submit A Draft form.
