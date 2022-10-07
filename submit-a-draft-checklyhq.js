@@ -18,7 +18,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch(
     {
       headless: false,
-      slowMo: 25,
+      slowMo: 5,
       args: ['--disable-dev-shm-usage']
     });
   try {  
@@ -111,7 +111,7 @@ const puppeteer = require('puppeteer');
     // await page.click('#edit-submit'); 
     // await page.evaluate(()=>document.querySelector('#edit-submit').click());
     // await page.evaluate(() => document.getElementById('edit-submit').click());
-    // await page.screenshot({ path: 'after_submit.png', fullPage: true })
+    await page.screenshot({ path: 'after_submit.png', fullPage: true })
 
     await navigationPromise;
     
@@ -137,7 +137,7 @@ const puppeteer = require('puppeteer');
   }
 
   async function typeThis(selector, theValue, page) {
-    await page.waitForTimeout(500);    // wait for a second
+    await page.waitForTimeout(200);    // wait for x ms
     await page.waitForSelector(selector); // wait for the element
     await page.focus(selector); // focus on the element
     await page.keyboard.type(theValue);  // thanks https://stackoverflow.com/a/56772379
