@@ -2,9 +2,9 @@ const path = require('path')
 const fs = require('fs')
 ﻿const filePath = path.join(__dirname, 'test-upload-file.txt')
 fs.writeFileSync(filePath, 'test file contents')
-console.log('Wrote test file to ', filePath)
+// console.log('Wrote test file to ', filePath)
 const contents = fs.readFileSync(filePath, 'utf8')
-console.log('Test file contains: ', contents)
+// console.log('Test file contains: ', contents)
 
 const puppeteer = require('puppeteer');
 
@@ -30,15 +30,12 @@ const puppeteer = require('puppeteer');
     const dateArray = date.split(', ');
     const YYYYMMDD = dateArray[0];
     const hhmm = dateArray[1];
-    console.log(YYYYMMDD);
-    console.log(hhmm);
+    // console.log(YYYYMMDD);
+    // console.log(hhmm);
     const draftTitle = 'Daily autotest ' + date;
     const navigationPromise = page.waitForNavigation()
 
     await page.goto('https://library.wwu.edu/submit-draft-studio');
-
-    // console.log('process.env.FILE_PATH', process.env.FILE_PATH);
-    // console.log('x');
 
     await typeThis('#edit-title-rws-draft', draftTitle, page);
 
@@ -51,7 +48,6 @@ const puppeteer = require('puppeteer');
     await typeThis('#edit-due-date-rws-draft-date', YYYYMMDD, page);
   
     await page.waitForSelector('#edit-due-date-rws-draft-time');
-    // await page.type('#edit-due-date-rws-draft-time', '14:35 PM');
     await typeThis('#edit-due-date-rws-draft-time', '14:35 PM', page);
 
     await page.waitForSelector('#edit-academic-level-rws-draft');
@@ -60,11 +56,9 @@ const puppeteer = require('puppeteer');
 
     waitAndClick('#edit-main-concerns-rws-draft-writing-a-thesis-statement', page);
 
-    // await page.waitForSelector('#edit-draft-type-rws-draft-select');
     waitAndClick('#edit-draft-type-rws-draft-select', page);
     await page.select('#edit-draft-type-rws-draft-select', 'Class Paper');
 
-    // await page.waitForSelector('#edit-citation-style-rws-draft-select');
     await page.select('#edit-citation-style-rws-draft-select', 'APA');
 
     await typeThis('#edit-course-information-rws-draft', 'TST 101', page);
@@ -73,50 +67,31 @@ const puppeteer = require('puppeteer');
 
     await typeThis('#edit-assignment-description-rws-draft', 'This is just a test', page);
 
-    // get the selector input type=file (for upload file)
-    // await page.waitForSelector('input[type=file]');
-
     // get the ElementHandle of the selector above
     const inputUploadHandle = await page.$('input[type=file]');
 
-    // const fileToUpload = 'test-upload-file.txt'
-    // const fileToUpload = process.env.FILE_PATH
     // const fileToUpload = path.join(__dirname, process.env.FILE_PATH)
     const fileToUpload = filePath;
     inputUploadHandle.uploadFile(fileToUpload);
 
     // doing click on button to trigger upload file
-    // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload');
-    // await page.evaluate(() => document.getElementById('edit-draft-and-assignment-description-rws-draft-upload').click());
     await waitAndClick('#edit-draft-and-assignment-description-rws-draft-upload', page);
 
     // wait for selector that contains the uploaded file URL
-    // await page.waitForSelector('#edit-draft-and-assignment-description-rws-draft-upload-button');
-
     console.log('file uploaded');
 
     await page.waitForSelector('#edit-how-did-you-learn-about-rws-draft-select');
     await page.select('#edit-how-did-you-learn-about-rws-draft-select', 'Instructor')
 
-    // await page.waitForSelector('#edit-may-we-contact-rws-draft');
-    // await page.evaluate(() => document.getElementById('edit-may-we-contact-rws-draft').click());
     await waitAndClick('#edit-may-we-contact-rws-draft', page);
 
     await typeThis('#edit-other-info-rws-draft', 'This is a Puppeteer test', page);
 
-    // await page.waitForSelector('#edit-actions');
-
-    // await page.waitForSelector('#edit-submit');
     await waitAndClick('#edit-submit', page);
-    // await page.click('#edit-submit'); 
-    // await page.evaluate(()=>document.querySelector('#edit-submit').click());
-    // await page.evaluate(() => document.getElementById('edit-submit').click());
-    await page.screenshot({ path: 'after_submit.png', fullPage: true })
 
     await navigationPromise;
     
-    // await page.close();
-    console.log('l');    
+    console.log('finis');    
   } catch (error) {
     console.log(error);
   } finally {
