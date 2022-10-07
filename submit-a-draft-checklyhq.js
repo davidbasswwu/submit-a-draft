@@ -42,10 +42,10 @@ const puppeteer = require('puppeteer');
 
     await typeThis('#edit-title-rws-draft', draftTitle, page);
 
-    await typeThis('#edit-preferred-name-rws-draft', 'David Bass - autotest', page);
+    await typeThis('#edit-preferred-name-rws-draft', process.env.MY_NAME + ' - autotest', page);
   
-    await typeThis('#edit-wwu-email-address-rws-draft-mail-1', 'bassd2@wwu.edu', page);
-    await typeThis('#edit-wwu-email-address-rws-draft-mail-2', 'bassd2@wwu.edu', page);
+    await typeThis('#edit-wwu-email-address-rws-draft-mail-1', process.env.MY_EMAIL, page);
+    await typeThis('#edit-wwu-email-address-rws-draft-mail-2', process.env.MY_EMAIL, page);
   
     await page.waitForSelector('#edit-due-date-rws-draft-date');
     await typeThis('#edit-due-date-rws-draft-date', YYYYMMDD, page);
@@ -66,7 +66,7 @@ const puppeteer = require('puppeteer');
 
     await typeThis('#edit-course-information-rws-draft', 'TST 101', page);
 
-    await typeThis('#edit-instructor-rws-draft', 'Gabe Gossett', page);
+    await typeThis('#edit-instructor-rws-draft', 'John Doe, PhD', page);
 
     await typeThis('#edit-assignment-description-rws-draft', 'This is just a test', page);
 
