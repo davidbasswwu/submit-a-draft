@@ -1,6 +1,9 @@
+// This script was created (mostly) by David Bass in October 2022, with some help from 
+// Chris from Checkly and Stackoverflow (links below).  
+
 const path = require('path')
 const fs = require('fs')
-﻿const filePath = path.join(__dirname, 'test-upload-file.txt')
+const filePath = path.join(__dirname, 'test-upload-file.txt')
 fs.writeFileSync(filePath, 'test file contents')
 // console.log('Wrote test file to ', filePath)
 const contents = fs.readFileSync(filePath, 'utf8')
